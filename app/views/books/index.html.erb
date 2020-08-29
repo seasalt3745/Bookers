@@ -1,0 +1,45 @@
+<h1>Books</h1>
+
+<table>
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Body</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @books.each do |b| %>
+			<tr>
+				<td><%= b.title %></td>
+				<td><%= b.body %></td>
+				<td><%= link_to "Show" , book_path(b.id) %></td>
+				<td><%= link_to "Edit" , edit_book_path(b.id) %></td>
+				<td><%= link_to "Destroy" , book_path(b.id), method: :delete , "data-confirm" => "本当に削除しますか？" %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<hr>
+
+
+<h2>New Book</h2>
+
+<%= form_for (@book) do |b| %>
+
+<% if @book.errors.any? %>
+  <div>
+    <ul style="color: red">
+      <% @book.errors.full_messages.each do |message| %>
+        <li>error : <%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+	<h4>Title</h4>
+	<%= b.text_field :title %>
+	<h4>Bodys</h4>
+	<%= b.text_area :body %>
+	<%= b.submit "Create Book" %>
+<% end %>
+
